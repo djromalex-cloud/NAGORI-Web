@@ -47,9 +47,16 @@
           <a href="#trailer" class="btn btn-ghost">Ver tráiler</a>
         </div>
       </div>
-      <div class="hero-hanna">
+      <div class="hero-hanna" id="heroHanna">
+        <div class="hero-glow" aria-hidden="true"></div>
         <img src="assets/img/anillo.webp" alt="" class="hero-ring" aria-hidden="true">
-        <canvas id="hannaIdle" width="220" height="220" role="img" aria-label="Hanna, la protagonista"></canvas>
+        <img src="assets/img/anillo.webp" alt="" class="hero-ring hero-ring-2" aria-hidden="true">
+        <div class="hero-orbit" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="hero-burst" id="heroBurst" aria-hidden="true"></div>
+        <div class="hero-float">
+          <canvas id="hannaIdle" width="440" height="240" role="img" aria-label="Hanna, la protagonista. Haz clic para que ataque."></canvas>
+        </div>
+        <p class="hero-hint">Toca a Hanna</p>
       </div>
     </div>
     <a href="#historia" class="scroll-hint" aria-label="Bajar"><span></span></a>

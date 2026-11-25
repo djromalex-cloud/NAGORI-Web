@@ -91,7 +91,87 @@ function animarSprite(canvasId, src, frames, cols, fw, fh, fps) {
     requestAnimationFrame(draw);
   };
 }
-animarSprite("hannaIdle", "assets/img/hanna-idle.webp", 48, 8, 220, 220, 30);
+
+/* ---------- Hanna en la portada: idle + ataque con corte ---------- */
+(function hannaHero() {
+  const cv = document.getElementById("hannaIdle");
+  const box = document.getElementById("heroHanna");
+  const burst = document.getElementById("heroBurst");
+  const ctx = cv.getContext("2d");
+  const cargar = s => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = s; });
+  const golpe = new Audio("assets/media/golpe.mp3");
+  golpe.volume = 0.5;
+  const C = 220, AW = 330, HX = 110, HY = 10;                 // celda del sprite y posición de Hanna
+  let modo = "idle", f = 0, last = 0, proximo = performance.now() + 3500;
+
+  Promise.all([cargar("assets/img/hanna-idle.webp"), cargar("assets/img/hanna-ataque.webp"), cargar("assets/img/fx-corte.webp")])
+    .then(([idle, atk, fx]) => {
+      const celda = (img, i) => [(i % 8) * C, Math.floor(i / 8) * C];
+      const celdaAtk = i => [(i % 5) * AW, Math.floor(i / 5) * C];
+      function dibujar() {
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        if (modo === "idle") {
+          const [sx, sy] = celda(idle, f % 48);
+          ctx.drawImage(idle, sx, sy, C, C, HX, HY, C, C);
+        } else {
+          const [sx, sy] = celdaAtk(Math.min(f, 15));
+          ctx.drawImage(atk, sx, sy, AW, C, HX, HY, AW, C);
+          const k = f - 3;                           // el corte aparece desde el cuadro 3
+          if (k >= 0 && k < 12) {
+            const fi = Math.min(5, Math.floor(k / 2));
+            ctx.globalAlpha = k < 8 ? 1 : 1 - (k - 8) / 4;
+            ctx.drawImage(fx, fi * 160, 0, 160, 180, HX + 118, HY + 30, 150, 169);
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+      function atacar(conSonido) {
+        if (modo === "ataque") return;
+        modo = "ataque"; f = 0;
+        box.classList.remove("golpe"); void box.offsetWidth; box.classList.add("golpe");
+        if (conSonido) { golpe.currentTime = 0; golpe.play().catch(() => {}); }
+        petalos(conSonido ? 14 : 8);
+      }
+      function petalos(n) {
+        for (let i = 0; i < n; i++) {
+          const s = document.createElement("span");
+          const a = (-60 + Math.random() * 120) * Math.PI / 180, d = 80 + Math.random() * 120;
+          s.style.setProperty("--dx", Math.cos(a) * d + 40 + "px");
+          s.style.setProperty("--dy", Math.sin(a) * d + "px");
+          s.style.setProperty("--rot", Math.random() * 540 + "deg");
+          s.style.animationDelay = Math.random() * 0.12 + "s";
+          burst.appendChild(s);
+          setTimeout(() => s.remove(), 1200);
+        }
+      }
+      cv.addEventListener("click", () => atacar(true));
+      function loop(t) {
+        if (t - last >= 1000 / 30) {
+          last = t;
+          dibujar();
+          f++;
+          if (modo === "ataque" && f >= 18) { modo = "idle"; f = 0; proximo = t + 4000 + Math.random() * 2500; }
+          if (modo === "idle" && t > proximo) atacar(false);
+        }
+        requestAnimationFrame(loop);
+      }
+      if (reduceMotion) { dibujar(); cv.addEventListener("click", () => {}); }
+      else requestAnimationFrame(loop);
+    });
+
+  // inclinación suave siguiendo el mouse
+  if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener("mousemove", e => {
+      const r = box.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      const y = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      box.querySelectorAll(".hero-ring, .hero-glow").forEach((el, i) => {
+        el.style.translate = `${x * (14 + i * 10)}px ${y * (14 + i * 10)}px`;
+      });
+      box.querySelector(".hero-float").style.translate = `${x * -10}px ${y * -8}px`;
+    }, { passive: true });
+  }
+})();
 animarSprite("dedaleraIdle", "assets/img/dedalera-idle.webp", 72, 12, 200, 224, 30);
 
 /* ---------- tráiler ---------- */
