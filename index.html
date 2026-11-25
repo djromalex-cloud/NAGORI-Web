@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAGORI — Utsuroi Studios</title>
+  <meta name="description" content="NAGORI: un metroidvania 2D dibujado a mano. Acompaña a Hanna, un alma de cerezo, a través del limbo. Descarga la beta.">
+  <meta name="theme-color" content="#120a1a">
+  <meta property="og:title" content="NAGORI">
+  <meta property="og:description" content="Acompaña a Hanna, un alma de cerezo, a través del limbo. Descarga la beta.">
+  <meta property="og:image" content="assets/img/bg-cerezos.webp">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preload" href="assets/fonts/Anton.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="petalos" aria-hidden="true"></canvas>
+
+  <!-- ============ NAVEGACIÓN ============ -->
+  <header class="nav" id="nav">
+    <a href="#inicio" class="nav-logo">NAGORI</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#historia">Historia</a>
+      <a href="#hanna">Hanna</a>
+      <a href="#capitulos">Capítulos</a>
+      <a href="#enemigos">Enemigos</a>
+      <a href="#controles">Controles</a>
+      <a href="#descargar" class="nav-cta">Descargar</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg" style="background-image:url('assets/img/bg-cerezos.webp')"></div>
+    <div class="hero-shade"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-studio">Utsuroi Studios presenta</p>
+        <h1 class="hero-title">NAGORI<span class="hero-kanji">名残</span></h1>
+        <p class="hero-tag">Lo que queda cuando una flor cae.<br>Un viaje dibujado a mano a través del limbo.</p>
+        <div class="hero-buttons">
+          <a href="#descargar" class="btn btn-primary">Descargar beta</a>
+          <a href="#trailer" class="btn btn-ghost">Ver tráiler</a>
+        </div>
+      </div>
+      <div class="hero-hanna">
+        <img src="assets/img/anillo.webp" alt="" class="hero-ring" aria-hidden="true">
+        <canvas id="hannaIdle" width="220" height="220" role="img" aria-label="Hanna, la protagonista"></canvas>
+      </div>
+    </div>
+    <a href="#historia" class="scroll-hint" aria-label="Bajar"><span></span></a>
+  </section>
+
+  <!-- ============ HISTORIA ============ -->
+  <section class="section historia" id="historia">
+    <div class="wrap two-col">
+      <div class="reveal">
+        <p class="eyebrow">La historia</p>
+        <h2>Un limbo donde las almas son hojas</h2>
+        <p class="lead">Más allá de la vida existe un lugar suspendido: el limbo. Ahí, cada alma toma la forma de una hoja o una flor, y conserva apenas un eco de lo que fue.</p>
+        <p>Hanna despierta en su habitación sin saber cuánto tiempo ha pasado. Afuera, el camino de los cerezos la llama hacia una ciudad abandonada, un edificio en ruinas y una gruta de cristal donde la luz se ha olvidado de brillar.</p>
+        <p>En su camino recogerá <em>recuerdos</em>, fragmentos de lo que dejó atrás, y se enfrentará a almas que perdieron el rumbo. <strong>Nagori</strong> (名残) significa lo que permanece después de que algo se ha ido.</p>
+      </div>
+      <div class="historia-art reveal">
+        <div class="frame">
+          <img src="assets/img/bg-arbol.webp" alt="Árbol de cerezo en el sendero del Prólogo" loading="lazy">
+        </div>
+        <img src="assets/img/hoja-recuerdo.webp" alt="" class="float-leaf" aria-hidden="true" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HANNA ============ -->
+  <section class="section hanna" id="hanna">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">La protagonista</p>
+        <h2>Hanna, alma de cerezo</h2>
+        <p class="lead center">Pequeña, ágil y más valiente de lo que parece. Hanna combate con cortes de pétalos y gana nuevas habilidades al vencer a los guardianes del limbo.</p>
+      </div>
+      <div class="hanna-grid">
+        <div class="hanna-portrait reveal">
+          <img src="assets/img/hanna-menu.webp" alt="Hanna" loading="lazy">
+        </div>
+        <div class="skills">
+          <article class="skill reveal">
+            <div class="skill-icon"><img src="assets/img/petalo.webp" alt="" loading="lazy"></div>
+            <div>
+              <h3>Pétalos de vida</h3>
+              <p>Tu salud son pétalos. Los enemigos sueltan orbes de alma que te los devuelven.</p>
+            </div>
+          </article>
+          <article class="skill reveal">
+            <div class="skill-icon"><span class="skill-glyph">➶</span></div>
+            <div>
+              <h3>Dash invulnerable</h3>
+              <p>Atraviesa enemigos y ataques sin recibir daño mientras dura el impulso.</p>
+            </div>
+          </article>
+          <article class="skill reveal">
+            <div class="skill-icon"><img src="assets/img/dedalera-flor.webp" alt="" loading="lazy"></div>
+            <div>
+              <h3>Salto de pared</h3>
+              <p>Se desbloquea al vencer a la Dedalera. Aférrate a los muros y alcanza lo imposible.</p>
+            </div>
+          </article>
+          <article class="skill reveal">
+            <div class="skill-icon glow"><img src="assets/img/orbe.webp" alt="" loading="lazy"></div>
+            <div>
+              <h3>Alma de Amaranto</h3>
+              <p>El golpe potenciado. Lo obtienes al derrotar al Amaranto Rojo y se carga golpeando.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CAPÍTULOS ============ -->
+  <section class="section capitulos" id="capitulos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">El viaje</p>
+        <h2>Capítulos</h2>
+      </div>
+      <div class="chapters">
+        <article class="chapter reveal" style="--bg:url('assets/img/bg-habitacion.webp')">
+          <div class="chapter-info">
+            <span class="chapter-tag">Tutorial</span>
+            <h3>La habitación de Hanna</h3>
+            <p>Donde todo comienza. Aprende a moverte, saltar, atacar y esquivar.</p>
+          </div>
+        </article>
+        <article class="chapter reveal" style="--bg:url('assets/img/bg-dedalera.webp')">
+          <div class="chapter-info">
+            <span class="chapter-tag">Prólogo</span>
+            <h3>El camino de los cerezos</h3>
+            <p>Un sendero en flor que guarda a su primera guardiana: la Dedalera.</p>
+          </div>
+        </article>
+        <article class="chapter reveal" style="--bg:url('assets/img/bg-ciudad.webp')">
+          <div class="chapter-info">
+            <span class="chapter-tag">Capítulo I</span>
+            <h3>La Ciudad Abandonada</h3>
+            <p>Calles en silencio, faroles apagados y el Amaranto Rojo esperando en lo alto.</p>
+          </div>
+        </article>
+        <article class="chapter reveal" style="--bg:url('assets/img/bg-cueva.webp')">
+          <div class="chapter-info">
+            <span class="chapter-tag">Capítulo II</span>
+            <h3>Edificio Abandonado y Gruta de Cristal</h3>
+            <p>Desciende por un pozo hasta una cueva donde el agua y los cristales iluminan el camino.</p>
+          </div>
+        </article>
+        <article class="chapter chapter-boss reveal" style="--bg:url('assets/img/bg-jefe.webp')">
+          <div class="chapter-info">
+            <span class="chapter-tag">Capítulo III · Jefe</span>
+            <h3>La Luz Olvidada</h3>
+            <p>Una arena entre las nubes. Lo que te espera ahí se siente como un dios.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ENEMIGOS ============ -->
+  <section class="section enemigos" id="enemigos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Almas perdidas</p>
+        <h2>Enemigos</h2>
+        <p class="lead center">No todas las almas encontraron la paz. Algunas florecieron en furia.</p>
+      </div>
+      <div class="enemy-grid">
+        <article class="enemy reveal">
+          <div class="enemy-img"><img src="assets/img/lirio.webp" alt="Lirio del Valle" loading="lazy"></div>
+          <h3>Lirio del Valle</h3>
+          <p>Se esconde bajo sus hojas, bloquea tus golpes y responde con campanadas.</p>
+        </article>
+        <article class="enemy reveal">
+          <div class="enemy-img"><img src="assets/img/laurel.webp" alt="Laurel de Montaña" loading="lazy"></div>
+          <h3>Laurel de Montaña</h3>
+          <p>Un espadachín de pétalos: estocadas veloces y nubes de polen.</p>
+        </article>
+        <article class="enemy reveal">
+          <div class="enemy-img"><img src="assets/img/farolillo.webp" alt="Farolillo Volador" loading="lazy"></div>
+          <h3>Farolillo Volador</h3>
+          <p>Flota entre las ruinas y dispara semillas encendidas desde el aire.</p>
+        </article>
+      </div>
+
+      <h3 class="sub-head reveal">Guardianes</h3>
+      <div class="boss-grid">
+        <article class="boss reveal">
+          <div class="boss-img"><canvas id="dedaleraIdle" width="200" height="224" role="img" aria-label="La Dedalera"></canvas></div>
+          <div class="boss-info">
+            <span class="chapter-tag">Prólogo</span>
+            <h3>La Dedalera</h3>
+            <p>Dos veces más alta que Hanna. Raíces que brotan del suelo, esporas y campanillas venenosas.</p>
+          </div>
+        </article>
+        <article class="boss reveal">
+          <div class="boss-img"><img src="assets/img/amaranto.webp" alt="Amaranto Rojo" loading="lazy"></div>
+          <div class="boss-info">
+            <span class="chapter-tag">Capítulo I</span>
+            <h3>Amaranto Rojo</h3>
+            <p>Latigazos, zarpazos y embestidas. Derrótalo para heredar el Alma de Amaranto.</p>
+          </div>
+        </article>
+        <article class="boss boss-mystery reveal">
+          <div class="boss-img"><span class="mystery">?</span></div>
+          <div class="boss-info">
+            <span class="chapter-tag">Capítulo III</span>
+            <h3>???</h3>
+            <p>Nadie que haya llegado a la Luz Olvidada ha vuelto para contarlo.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECUERDOS ============ -->
+  <section class="section recuerdos">
+    <div class="wrap two-col">
+      <div class="recuerdos-art reveal">
+        <img src="assets/img/hoja-recuerdo.webp" alt="Hoja de recuerdo" loading="lazy">
+        <img src="assets/img/hoja-recuerdo.webp" alt="" aria-hidden="true" loading="lazy">
+        <img src="assets/img/hoja-recuerdo.webp" alt="" aria-hidden="true" loading="lazy">
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Explora</p>
+        <h2>Recuerdos y rangos</h2>
+        <p class="lead">Cada nivel esconde tres hojas que brillan. Tócalas y descubrirás un mensaje del pasado de Hanna.</p>
+        <ul class="ticks">
+          <li>3 recuerdos ocultos por nivel</li>
+          <li>Pantalla de resultados con puntaje y rango</li>
+          <li>Récord y mejor tiempo guardados por capítulo</li>
+          <li>Puntos de control y guardado automático</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRÁILER ============ -->
+  <section class="section trailer" id="trailer">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Avance</p>
+        <h2>Tráiler</h2>
+      </div>
+      <div class="video-frame reveal">
+        <video src="assets/media/trailer.mp4" poster="assets/media/trailer-poster.jpg" muted loop playsinline preload="metadata" id="trailerVideo"></video>
+        <button class="video-play" id="videoPlay" aria-label="Reproducir tráiler">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTROLES ============ -->
+  <section class="section controles" id="controles">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Cómo se juega</p>
+        <h2>Controles</h2>
+        <p class="lead center">Puedes reasignar todas las teclas desde el menú de opciones.</p>
+      </div>
+      <div class="controls-grid reveal">
+        <div class="control"><div class="keys"><kbd>A</kbd><kbd>D</kbd></div><span>Moverse</span></div>
+        <div class="control"><div class="keys"><kbd class="wide">Espacio</kbd></div><span>Saltar</span></div>
+        <div class="control"><div class="keys"><kbd>X</kbd><kbd>J</kbd></div><span>Atacar</span></div>
+        <div class="control"><div class="keys"><kbd class="wide">Clic der.</kbd><kbd>C</kbd></div><span>Dash</span></div>
+        <div class="control"><div class="keys"><kbd>W</kbd><kbd>S</kbd></div><span>Arriba · Abajo</span></div>
+        <div class="control"><div class="keys"><kbd>E</kbd></div><span>Interactuar</span></div>
+        <div class="control"><div class="keys"><kbd class="wide">Esc</kbd></div><span>Pausa y mapa</span></div>
+        <div class="control"><div class="keys"><kbd>←</kbd><kbd>→</kbd></div><span>Moverse (alternativo)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESCARGAR ============ -->
+  <section class="section descargar" id="descargar">
+    <div class="descargar-bg" style="background-image:url('assets/img/bg-final.webp')"></div>
+    <div class="wrap">
+      <div class="download-card reveal">
+        <img src="assets/img/hanna-retrato.webp" alt="" class="download-face" aria-hidden="true">
+        <p class="eyebrow">Beta</p>
+        <h2>Descarga NAGORI</h2>
+        <p class="lead center">Juega la beta gratis y cuéntanos qué te pareció.</p>
+        <a href="#" class="btn btn-primary btn-big" id="btnDescarga">Descargar para Windows</a>
+        <p class="download-meta" id="downloadMeta"></p>
+        <div class="reqs">
+          <div><strong>Sistema</strong><span>Windows 10/11 (64 bits)</span></div>
+          <div><strong>Motor</strong><span>Unity 6</span></div>
+          <div><strong>Entrada</strong><span>Teclado y mouse</span></div>
+        </div>
+        <a href="#" class="feedback-link" id="btnEncuesta" hidden>Responder la encuesta de prueba →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PIE ============ -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <p class="footer-logo">NAGORI</p>
+        <p class="footer-small">Un juego de <strong>Utsuroi Studios</strong></p>
+      </div>
+      <div class="footer-credits">
+        <p><span>Desarrollo, diseño y programación</span>Román Alexis Bañuelos Vizcarra</p>
+        <p><span>Hecho con</span>Unity 6</p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 Utsuroi Studios. Todos los derechos reservados.</p>
+  </footer>
+
+  <button class="music-toggle" id="musicToggle" aria-label="Activar música" aria-pressed="false">
+    <span class="bars"><i></i><i></i><i></i></span>
+  </button>
+  <audio id="music" src="assets/media/musica-menu.mp3" loop preload="none"></audio>
+
+  <script src="main.js"></script>
+</body>
+</html>
