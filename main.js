@@ -13,7 +13,9 @@ const CONFIG = {
   encuestaUrl: ""
 };
 
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Las animaciones del sitio son parte del arte del juego: se muestran siempre,
+// aunque Windows tenga desactivados los "efectos de animación".
+const reduceMotion = false;
 
 /* ---------- botón de descarga ---------- */
 (function () {

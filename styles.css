@@ -343,7 +343,5 @@ kbd.wide { font-size: 14px; letter-spacing: .06em; }
   body { font-size: 17px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
