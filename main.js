@@ -4,13 +4,10 @@
    CONFIGURACIÓN: cambia estos valores cuando tengas los links
    ========================================================= */
 const CONFIG = {
-  // Link de descarga del juego (itch.io, Google Drive, Release de GitHub, etc.)
-  // Mientras esté vacío, el botón dirá "Próximamente".
-  descargaUrl: "",
+  descargaUrl: "https://github.com/djromalex-cloud/NAGORI-Web/releases/download/V1.0/NagoriGame.rar",
   version: "Beta",
-  tamano: "",            // ej. "350 MB"
-  // Link del Google Forms para las pruebas con usuarios (vacío = no se muestra)
-  encuestaUrl: ""
+  tamano: "221 MB",
+  encuestaUrl: "https://forms.gle/2FDgcBMvHcWCiSSh9"
 };
 
 // Las animaciones del sitio son parte del arte del juego: se muestran siempre,
